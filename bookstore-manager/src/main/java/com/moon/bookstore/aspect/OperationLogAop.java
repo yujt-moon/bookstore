@@ -1,5 +1,6 @@
 package com.moon.bookstore.aspect;
 
+import com.alibaba.fastjson.JSON;
 import com.moon.bookstore.api.entity.OperateLog;
 import com.moon.bookstore.api.service.IOperateLogService;
 import com.moon.bookstore.common.RestResponse;
@@ -17,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -70,7 +70,7 @@ public class OperationLogAop {
                 operateLog.setOperateName("自动填充");
             }
             Object[] args = point.getArgs();
-            operateLog.setOperateContent(Arrays.toString(args));
+            operateLog.setOperateContent(JSON.toJSONString(args));
 
             if (result instanceof RestResponse) {
                 RestResponse response = (RestResponse) result;
