@@ -1,0 +1,17 @@
+com/moon/bookstore/api/entity/TaskRelation.class
+com/moon/bookstore/api/service/IChapterService.class
+com/moon/bookstore/api/util/UnicodeConvertUtil.class
+com/moon/bookstore/api/entity/Chapter.class
+com/moon/bookstore/api/PageRequest.class
+com/moon/bookstore/api/vo/BookVo.class
+com/moon/bookstore/api/service/IOcrService.class
+com/moon/bookstore/api/request/VideoRequest.class
+com/moon/bookstore/api/constants/ESConstants.class
+com/moon/bookstore/api/service/IBookCategoryService.class
+com/moon/bookstore/api/vo/BookCategoryVo.class
+com/moon/bookstore/api/es/IElasticSearchRepository.class
+com/moon/bookstore/api/entity/BookCategory.class
+com/moon/bookstore/api/service/IBookService.class
+com/moon/bookstore/api/service/ITaskRelationService.class
+com/moon/bookstore/api/entity/Book.class
+com/moon/bookstore/api/request/BookPageRequest.class

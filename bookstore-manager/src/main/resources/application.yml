@@ -1,0 +1,125 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: bookstore-manager
+  profiles:
+    active: dev
+#  # 配置数据源
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    # 单机数据库
+#    # !不添加时区会导致保存的日期少一天（使用java.util.Date）
+#    url: jdbc:mysql://localhost:3306/bookstore?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+#    username: root
+#    password: root
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    druid:
+#      # 属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有： 监控统计用的filter:stat日志用的filter:log4j防御sql注入的filter:wall
+#      # 配置多个英文逗号分隔
+#      filters: stat,wall,slf4j
+#      # 通过connectProperties属性来打开mergeSql功能；记录慢SQL
+#      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+  # 分库分表
+  shardingsphere:
+    sharding:
+      default-data-source-name: ds
+      default-database-strategy:
+        inline:
+          sharding-column: id
+          algorithm-expression: ds$->{(id % 3) + 1}
+      tables:
+        book:
+          actual-data-nodes: ds$->{1..2}.book_$->{['01', '02', '03']}
+          table-strategy:
+            inline:
+              sharding-column: category_id
+              algorithm-expression: book_0$->{(category_id % 3) + 1}
+      default-key-generator:
+        column: id
+        type: SNOWFLAKE
+
+    datasource:
+      names: ds,ds1,ds2,ds3
+      ds:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/bookstore
+        username: root
+        password: root
+        hikari:
+          pool-name: KevinHikariPool
+          maximum-pool-size: 50
+          connection-timeout: 60000
+          minimum-idle: 10
+          idle-timeout: 500000
+          max-lifetime: 540000
+          connection-test-query: SELECT 1 from DUAL
+      ds1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/bookstore_1
+        username: root
+        password: root
+        hikari:
+          pool-name: KevinHikariPool
+          maximum-pool-size: 50
+          connection-timeout: 60000
+          minimum-idle: 10
+          idle-timeout: 500000
+          max-lifetime: 540000
+          connection-test-query: SELECT 1 from DUAL
+      ds2:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/bookstore_2
+        username: root
+        password: root
+        hikari:
+          pool-name: KevinHikariPool
+          maximum-pool-size: 50
+          connection-timeout: 60000
+          minimum-idle: 10
+          idle-timeout: 500000
+          max-lifetime: 540000
+          connection-test-query: SELECT 1 from DUAL
+      ds3:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/bookstore_3
+        username: root
+        password: root
+        hikari:
+          pool-name: KevinHikariPool
+          maximum-pool-size: 50
+          connection-timeout: 60000
+          minimum-idle: 10
+          idle-timeout: 500000
+          max-lifetime: 540000
+          connection-test-query: SELECT 1 from DUAL
+    props:
+      sql:
+        show: true
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
+# mybatis-plus 相关配置
+mybatis-plus:
+  # xml 扫描，多个目录用逗号或者分号分隔
+  mapper-locations: classpath:mapper/*.xml
+  # 打印 sql
+  configuration:
+#    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+baidu:
+  ocr:
+    appId: 22788035
+    apiKey: GY3Xkv742nbO9IOLYoNteSad
+    secretKey: 0phM8cTQGFWebzMdMwjUjWqsz6vgrMGw
+
+opencv:
+  lib:
+    path: /home/yujt/software/opencv-4.5.3/build/lib/libopencv_java453.so

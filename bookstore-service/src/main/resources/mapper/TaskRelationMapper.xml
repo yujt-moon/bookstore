@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moon.bookstore.service.mapper.TaskRelationMapper">
+
+    <select id="selectDirectRel" resultType="string">
+        select related_task_id from task_relation where task_id = #{taskId}
+        union all
+        select task_id from task_relation where related_task_id = #{taskId}
+    </select>
+</mapper>
