@@ -2,11 +2,12 @@ package com.moon.bookstore.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.moon.bookstore.common.RestResponse;
 import com.moon.bookstore.api.entity.Book;
 import com.moon.bookstore.api.request.BookAddRequest;
 import com.moon.bookstore.api.request.BookPageRequest;
 import com.moon.bookstore.api.service.IBookService;
+import com.moon.bookstore.common.RestResponse;
+import com.moon.bookstore.common.annotation.OperateLogOpt;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -54,6 +55,7 @@ public class BookController {
     }
 
     @PostMapping("/add")
+    @OperateLogOpt(bizCode = "book")
     public RestResponse<Boolean> insertBook(@RequestBody @Valid BookAddRequest request) {
         log.info(">>>> 新增书籍请求参数:{}", JSON.toJSONString(request));
         return RestResponse.ok(bookService.addBook(request));

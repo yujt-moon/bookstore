@@ -1,7 +1,7 @@
 package com.moon.bookstore.api.request;
 
 
-import com.moon.bookstore.api.PageRequest;
+import com.moon.bookstore.common.PageRequest;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
