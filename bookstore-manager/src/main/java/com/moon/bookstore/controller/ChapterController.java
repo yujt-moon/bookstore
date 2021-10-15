@@ -23,12 +23,12 @@ public class ChapterController {
     private IChapterService chapterService;
 
     @GetMapping("/list/{bookId}")
-    public RestResponse<List<Chapter>> getChapters(@PathVariable Integer bookId) {
+    public RestResponse<List<Chapter>> getChapters(@PathVariable Long bookId) {
         return RestResponse.ok(chapterService.getChapters(bookId));
     }
 
     @GetMapping("/detail/{id}")
-    public RestResponse<Chapter> getChapter(@PathVariable Integer id) {
+    public RestResponse<Chapter> getChapter(@PathVariable Long id) {
         return RestResponse.ok(chapterService.getChapter(id));
     }
 }

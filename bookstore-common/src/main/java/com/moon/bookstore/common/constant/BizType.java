@@ -1,6 +1,7 @@
 package com.moon.bookstore.common.constant;
 
 /**
+ * 业务类型
  * @author yujiangtao
  * @date 2021/9/14 下午6:18
  */
@@ -10,7 +11,7 @@ public enum BizType {
     UPDATE(2),
     DELETE(3);
 
-    private int code;
+    private final int code;
 
     BizType(int code) {
         this.code = code;

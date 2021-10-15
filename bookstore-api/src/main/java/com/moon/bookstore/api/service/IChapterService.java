@@ -22,12 +22,12 @@ public interface IChapterService {
      * @param bookId
      * @return
      */
-    List<Chapter> getChapters(Integer bookId);
+    List<Chapter> getChapters(Long bookId);
 
     /**
      * 查询章节信息
      * @param id
      * @return
      */
-    Chapter getChapter(Integer id);
+    Chapter getChapter(Long id);
 }

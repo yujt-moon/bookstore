@@ -32,7 +32,7 @@ public interface IBookService extends IService<Book> {
 
     IPage<Book> search(BookPageRequest request);
 
-    Book getBookInfo(Integer bookId);
+    Book getBookInfo(Long bookId, Long categoryId);
 
     /**
      * 获取分片的书籍信息

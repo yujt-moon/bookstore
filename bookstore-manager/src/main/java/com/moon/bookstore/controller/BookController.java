@@ -4,10 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.moon.bookstore.api.entity.Book;
 import com.moon.bookstore.api.request.BookAddRequest;
+import com.moon.bookstore.api.request.BookDelRequest;
 import com.moon.bookstore.api.request.BookPageRequest;
 import com.moon.bookstore.api.service.IBookService;
 import com.moon.bookstore.common.RestResponse;
-import com.moon.bookstore.common.annotation.OperateLogOpt;
+import com.moon.bookstore.common.annotation.LogRecord;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +35,7 @@ public class BookController {
     }
 
     @GetMapping("/insertAllEs")
+    @SuppressWarnings("rawtypes")
     public RestResponse insertAllEs() {
         boolean isSuccess = false;
         try {
@@ -49,15 +52,23 @@ public class BookController {
         return RestResponse.ok(page);
     }
 
-    @GetMapping("/getOne/{bookId}")
-    public RestResponse<Book> getOne(@PathVariable Integer bookId) {
-        return RestResponse.ok(bookService.getBookInfo(bookId));
+    @GetMapping("/getOne/{bookId}/{categoryId}")
+    public RestResponse<Book> getOne(@PathVariable Long bookId, @PathVariable Long categoryId) {
+        return RestResponse.ok(bookService.getBookInfo(bookId, categoryId));
     }
 
     @PostMapping("/add")
-    @OperateLogOpt(bizCode = "book")
+    @ApiOperation("新增书籍")
+    @LogRecord(bizCode = "book", operateContent = "新增#{#param0.name}，结果是#{#_ret?'成功':'失败'}")
     public RestResponse<Boolean> insertBook(@RequestBody @Valid BookAddRequest request) {
         log.info(">>>> 新增书籍请求参数:{}", JSON.toJSONString(request));
         return RestResponse.ok(bookService.addBook(request));
+    }
+
+    @PostMapping("/del")
+    @ApiOperation("删除书籍")
+    @LogRecord(bizCode = "book", operateContent = "#{@bookService.getBookInfo(#{param0}).name}")
+    public RestResponse<Boolean> delBook(@RequestBody @Valid BookDelRequest request) {
+        return RestResponse.ok(bookService.removeById(request.getId()));
     }
 }

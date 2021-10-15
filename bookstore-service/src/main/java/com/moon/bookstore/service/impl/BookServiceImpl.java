@@ -228,8 +228,9 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book>
     }
 
     @Override
-    public Book getBookInfo(Integer bookId) {
-        return baseMapper.selectById(bookId);
+    public Book getBookInfo(Long bookId, Long categoryId) {
+        return baseMapper.selectOne(new QueryWrapper<Book>().eq("id", bookId)
+                .eq("category_id", categoryId));
     }
 
     @Override

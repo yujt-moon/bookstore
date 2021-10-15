@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface OperateLogOpt {
+public @interface LogRecord {
 
     /**
      * 业务编码，查询不同的业务时需要

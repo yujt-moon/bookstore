@@ -25,13 +25,13 @@ public class ChapterServiceImpl implements IChapterService {
     }
 
     @Override
-    public List<Chapter> getChapters(Integer bookId) {
+    public List<Chapter> getChapters(Long bookId) {
         return chapterMapper.selectList(new QueryWrapper<Chapter>()
                 .eq("book_id", bookId).orderByAsc("no"));
     }
 
     @Override
-    public Chapter getChapter(Integer id) {
+    public Chapter getChapter(Long id) {
         return chapterMapper.selectById(id);
     }
 }

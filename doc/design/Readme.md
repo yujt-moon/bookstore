@@ -14,6 +14,10 @@
 
 [Linux搭建 ELK 日志收集系统: filebeat + redis + logstash +elasticsearch + kibana](https://juejin.cn/post/6844904111490465799)
 
+[Kibana使用教程](https://blog.csdn.net/xiaozm1223/article/details/89475003)
+
+[Metricbeat quick start: installation and configuration](https://www.elastic.co/guide/en/beats/metricbeat/7.14/metricbeat-installation-configuration.html)
+
 ### druid 监控配置
 [SpringBoot配置Druid监控](https://www.cnblogs.com/DFX339/p/12751584.html)
 
@@ -60,3 +64,18 @@ com.moon.bookstore.common.annotation.DecimalSerializeOpt
 [SpringBoot接口自定义序列化](https://www.jianshu.com/p/7ad5b5182aca)
 
 [Jackson自定义注解里面如何获取到注解信息](https://www.oschina.net/question/3960451_2288679?sort=time)
+
+### 统一操作日志
+
+#### 参考链接
+[Springboot 实现操作日志统一处理](https://blog.csdn.net/wang_jing_jing/article/details/118197625)
+
+[Springboot 实现操作日志统一处理](https://blog.csdn.net/wang_jing_jing/article/details/118197625)
+
+[AOP统一日志打印处理(系统操作日志通用设计)](https://www.cnblogs.com/linjiqin/p/12218751.html)
+
+[统一接口设计及日志管理](https://cloud.tencent.com/developer/article/1394264)
+
+[Spring Expression Language(SpEL)](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#expressions)
+
+[玩转Spring中强大的spel表达式！](https://zhuanlan.zhihu.com/p/174786047)
