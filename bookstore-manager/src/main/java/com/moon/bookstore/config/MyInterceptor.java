@@ -11,7 +11,7 @@ import java.lang.reflect.Field;
 import java.util.Properties;
 
 /**
- * 自定义mybatis 拦截器
+ * TODO 自定义mybatis 拦截器
  *
  * @author yujiangtao
  * @date 2021/2/28 上午10:24
@@ -40,7 +40,6 @@ public class MyInterceptor implements Interceptor {
         Field field = BoundSql.class.getDeclaredField("sql");
         field.setAccessible(true);
         field.set(boundSql, sql);
-
 
         return invocation.proceed();
     }

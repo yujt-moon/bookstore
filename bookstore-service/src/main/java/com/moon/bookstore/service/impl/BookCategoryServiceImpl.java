@@ -18,7 +18,7 @@ public class BookCategoryServiceImpl extends ServiceImpl<BookCategoryMapper, Boo
 
     @Override
     public List<BookCategory> getCategories() {
-        return baseMapper.selectList(new QueryWrapper());
+        return baseMapper.selectList(new QueryWrapper<>());
     }
 
     @Override

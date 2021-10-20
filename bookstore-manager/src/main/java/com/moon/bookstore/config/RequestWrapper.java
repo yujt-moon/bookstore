@@ -1,14 +1,12 @@
 package com.moon.bookstore.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.io.IOUtils;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
 /**
  * 由于 request getInputStream 和 getReader 只能读取一次，
@@ -19,54 +17,18 @@ import java.nio.charset.StandardCharsets;
  */
 public class RequestWrapper extends HttpServletRequestWrapper {
 
-    private static final Logger logger = LoggerFactory.getLogger(RequestWrapper.class);
+    private final byte[] cachedBytes;
 
-    private byte[] body;
-
-    public RequestWrapper(HttpServletRequest request) {
+    public RequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
-        byte[] buffer = new byte[1024];
-        int len = 0;
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        try {
-            while ((len = request.getInputStream().read(buffer)) != -1) {
-                bos.write(buffer, 0, len);
-            }
-        } catch (IOException e) {
-            logger.error("", e);
-        } finally {
-            try {
-                if(bos != null) {
-                    bos.close();
-                }
-            } catch (IOException e) {
-                logger.error("", e);
-            }
-        }
-
-        this.body = bos.toByteArray();
-//        StringBuilder sb = new StringBuilder();
-//        String line;
-//        BufferedReader reader = null;
-//        try {
-//            reader = request.getReader();
-//            while ((line = reader.readLine()) != null) {
-//                sb.append(line);
-//            }
-//        } catch (IOException e) {
-//            logger.error("读取请求失败！", e);
-//        }
-//        String body = sb.toString();
-//        this.body = body.getBytes(StandardCharsets.UTF_8);
-    }
-
-    public String getBody() {
-        return new String(body, StandardCharsets.UTF_8);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        IOUtils.copy(request.getInputStream(), baos);
+        this.cachedBytes = baos.toByteArray();
     }
 
     @Override
     public ServletInputStream getInputStream() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(body);
+        final ByteArrayInputStream bais = new ByteArrayInputStream(cachedBytes);
         return new ServletInputStream() {
             @Override
             public boolean isFinished() {
@@ -84,8 +46,8 @@ public class RequestWrapper extends HttpServletRequestWrapper {
             }
 
             @Override
-            public int read() throws IOException {
-                return inputStream.read();
+            public int read() {
+                return bais.read();
             }
         };
     }

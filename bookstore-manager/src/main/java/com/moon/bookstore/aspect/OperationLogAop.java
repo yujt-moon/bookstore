@@ -18,9 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ParserContext;
-import org.springframework.expression.common.CompositeStringExpression;
 import org.springframework.expression.common.TemplateParserContext;
-import org.springframework.expression.spel.standard.SpelExpression;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
@@ -77,17 +75,6 @@ public class OperationLogAop {
         // 操作内容
         String operateContent = annotation.operateContent();
         Expression expression = parser.parseExpression(operateContent, context);
-        // 判断 expression 的具体类型
-        if (expression instanceof CompositeStringExpression) {
-            Expression[] expressions = ((CompositeStringExpression) expression).getExpressions();
-            for (int i = 0; i < expressions.length; i++) {
-                Expression expr = expressions[i];
-                if (expr instanceof SpelExpression && expr.getExpressionString().contains("@")) {
-                    String replace = expr.getExpressionString().replace("()", "(1419896197220614145)");
-                }
-            }
-        } else if (expression instanceof SpelExpression) {}
-
         String contentValue = expression.getValue(evaluationContext, String.class);
 
         OperateLog operateLog = new OperateLog();

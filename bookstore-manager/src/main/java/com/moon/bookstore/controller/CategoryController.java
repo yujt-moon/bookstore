@@ -22,6 +22,7 @@ import java.util.Optional;
 @Slf4j
 @RestController
 @RequestMapping("/api/category")
+@SuppressWarnings("unused")
 public class CategoryController {
 
     @Autowired

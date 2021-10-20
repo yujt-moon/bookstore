@@ -79,3 +79,5 @@ com.moon.bookstore.common.annotation.DecimalSerializeOpt
 [Spring Expression Language(SpEL)](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#expressions)
 
 [玩转Spring中强大的spel表达式！](https://zhuanlan.zhihu.com/p/174786047)
+
+[由浅入深SpEL表达式注入漏洞](http://rui0.cn/archives/1043)

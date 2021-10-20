@@ -8,8 +8,8 @@ public interface IPublicService {
 
     /**
      * 执行命令行
-     * @param command
-     * @return
+     * @param command 命令
+     * @return 命令执行结果
      */
     String executeCommand(String command);
 }

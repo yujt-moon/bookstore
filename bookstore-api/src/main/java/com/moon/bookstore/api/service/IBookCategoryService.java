@@ -13,21 +13,21 @@ public interface IBookCategoryService extends IService<BookCategory> {
 
     /**
      * 查询分类信息列表
-     * @return
+     * @return 分类列表
      */
     List<BookCategory> getCategories();
 
     /**
      * 新增分类
-     * @param category
-     * @return
+     * @param category 分类信息
+     * @return 结果
      */
     boolean addCategory(BookCategory category);
 
     /**
      * 删除分类
-     * @param id
-     * @return
+     * @param id 分类id
+     * @return 结果
      */
     boolean delCategory(int id);
 }

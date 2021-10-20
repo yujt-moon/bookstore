@@ -18,9 +18,8 @@ public class ElasticSearchClientConfig {
     // spring <beans id="restHighLevelClient" class="RestHighLevelClient">
     @Bean
     public RestHighLevelClient restHighLevelClient() {
-        RestHighLevelClient client = new RestHighLevelClient(
+        return new RestHighLevelClient(
                 RestClient.builder(
                         new HttpHost("localhost", 9200, "http")));
-        return client;
     }
 }

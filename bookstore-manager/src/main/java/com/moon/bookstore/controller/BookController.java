@@ -23,6 +23,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/book")
 @Slf4j
+@SuppressWarnings("unused")
 public class BookController {
 
     @Autowired

@@ -6,23 +6,19 @@ package com.moon.bookstore.common.exception;
  * @author yujiangtao
  * @date 2021/7/23 下午3:37
  */
+@SuppressWarnings("unused")
 public class BusiException extends RuntimeException {
 
-    @SuppressWarnings("unused")
-    public BusiException() {
-    }
+    public BusiException() {}
 
-    @SuppressWarnings("unused")
     public BusiException(String message) {
         super(message);
     }
 
-    @SuppressWarnings("unused")
     public BusiException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    @SuppressWarnings("unused")
     public BusiException(Throwable cause) {
         super(cause);
     }
