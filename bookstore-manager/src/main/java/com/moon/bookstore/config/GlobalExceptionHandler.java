@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @SuppressWarnings({"rawtypes", "unused"})
     public RestResponse busiExceptionHandler(HttpServletRequest request, BusiException e) {
-        log.error(e.getMessage());
+        log.error("业务异常: {}", e.getMessage(), e);
         return RestResponse.fail(e.getMessage());
     }
 

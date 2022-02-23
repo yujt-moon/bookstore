@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
  * @author yujiangtao
  * @date 2021/8/18 下午8:21
  */
-@Configuration
+//@Configuration
 public class OpenCvAutoConfiguration {
 
     @Autowired

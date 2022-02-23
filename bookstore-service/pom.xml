@@ -35,6 +35,11 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -94,10 +99,11 @@
             <version>2.8.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
+        <!-- 去掉健康检查 -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-actuator</artifactId>-->
+<!--        </dependency>-->
 
         <!--<dependency>
             <groupId>io.micrometer</groupId>
@@ -126,9 +132,15 @@
         </dependency>-->
 
         <!-- opencv -->
+<!--        <dependency>-->
+<!--            <groupId>org.opencv</groupId>-->
+<!--            <artifactId>opencv</artifactId>-->
+<!--        </dependency>-->
+
+        <!--openoffice-->
         <dependency>
-            <groupId>org.opencv</groupId>
-            <artifactId>opencv</artifactId>
+            <groupId>com.artofsolving</groupId>
+            <artifactId>jodconverter</artifactId>
         </dependency>
     </dependencies>
 </project>

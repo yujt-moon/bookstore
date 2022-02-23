@@ -37,8 +37,8 @@ public class MybatisPlusConfig {
             }
         };*/
         return configuration -> {
-            MyInterceptor myInterceptor = new MyInterceptor();
-            configuration.addInterceptor(myInterceptor);
+            FieldInjectInterceptor fieldInjectInterceptor = new FieldInjectInterceptor();
+            configuration.addInterceptor(fieldInjectInterceptor);
         };
     }
 }

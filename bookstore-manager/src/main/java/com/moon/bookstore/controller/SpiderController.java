@@ -30,6 +30,14 @@ public class SpiderController {
     private Pipeline chapterPipeline;
 
     @Autowired
+    @Qualifier("ceaPipeline")
+    private Pipeline ceaPipeline;
+
+    @Autowired
+    @Qualifier("ccerPipeline")
+    private Pipeline ccerPipeline;
+
+    @Autowired
     private ZHBookPageProcessor zhBookPageProcessor;
 
     @GetMapping("/book/qd")
@@ -69,6 +77,30 @@ public class SpiderController {
                 .addPipeline(new ImageDownloadPipeline())
                 .addPipeline(new ConsolePipeline())
                 .thread(5).start();
+        return RestResponse.ok();
+    }
+
+    @GetMapping("/cea")
+    public RestResponse ceaSpider() {
+        Spider.create(new CeaProcessor())
+                //.addUrl("https://www.cneeex.com/cneeex/catalog/15317/pc/index_6.shtml")
+                //.addUrl("https://www.cneeex.com/cneeex/catalog/15317/pc/index_7.shtml")
+                .addUrl("https://www.cneeex.com/cneeex/catalog/15317/pc/index_8.shtml")
+                .addPipeline(new ConsolePipeline())
+                .addPipeline(ceaPipeline)
+                .thread(1)
+                .start();
+        return RestResponse.ok();
+    }
+
+    @GetMapping("/ccer")
+    public RestResponse ccerSpider() {
+        Spider.create(new CcerProcessor())
+                .addUrl("https://www.bjets.com.cn/article/jyxx/?")
+                .addPipeline(new ConsolePipeline())
+                .addPipeline(ccerPipeline)
+                .thread(1)
+                .start();
         return RestResponse.ok();
     }
 }

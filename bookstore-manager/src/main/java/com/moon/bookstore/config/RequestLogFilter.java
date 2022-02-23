@@ -2,6 +2,7 @@ package com.moon.bookstore.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -28,9 +29,14 @@ public class RequestLogFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        HttpServletRequest wrapper = new RequestWrapper(request);
-        logParam(wrapper);
-        filterChain.doFilter(wrapper, response);
+        // 如果是文件上传，则不打印日志
+        if (ServletFileUpload.isMultipartContent(request)) {
+            filterChain.doFilter(request, response);
+        } else {
+            HttpServletRequest wrapper = new RequestWrapper(request);
+            logParam(wrapper);
+            filterChain.doFilter(wrapper, response);
+        }
     }
 
     /**
@@ -39,6 +45,8 @@ public class RequestLogFilter extends OncePerRequestFilter {
      * @throws IOException io异常
      */
     private void logParam(HttpServletRequest request) throws IOException {
+        String url = request.getRequestURL().toString();
+        log.info("请求链接：{}", url);
         String contentType = request.getContentType();
         if(StringUtils.isNotBlank(contentType)) {
             contentType = contentType.split(";")[0];
@@ -54,6 +62,13 @@ public class RequestLogFilter extends OncePerRequestFilter {
             String line = null;
             while ((line = reader.readLine()) != null) {
                 log.info("请求入参：{}", line);
+            }
+        } else {
+            if ("GET".equalsIgnoreCase(request.getMethod())) {
+                String queryString = request.getQueryString();
+                if (StringUtils.isNotBlank(queryString)) {
+                    log.info("请求入参：{}", queryString);
+                }
             }
         }
     }

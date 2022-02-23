@@ -14,8 +14,11 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.EvaluationContext;
+import org.springframework.context.expression.BeanFactoryResolver;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ParserContext;
 import org.springframework.expression.common.TemplateParserContext;
@@ -33,10 +36,12 @@ import java.util.Date;
 @Slf4j
 @Aspect
 @Component
-public class OperationLogAop {
+public class OperationLogAop implements BeanFactoryAware {
 
     @Autowired
     private IOperateLogService operateLogService;
+
+    private BeanFactory beanFactory;
 
     //@Pointcut("execution(* com.moon.bookstore.controller.*.*(..))")
     @Pointcut("@annotation(com.moon.bookstore.common.annotation.LogRecord)")
@@ -60,7 +65,9 @@ public class OperationLogAop {
         ParserContext context = new TemplateParserContext("#{", "}");
 
         // 创建表达式计算上下文
-        EvaluationContext evaluationContext = new StandardEvaluationContext();
+        StandardEvaluationContext evaluationContext = new StandardEvaluationContext();
+        // 支持实例方法调用
+        evaluationContext.setBeanResolver(new BeanFactoryResolver(beanFactory));
         // 返回结果
         if (result instanceof RestResponse) {
             evaluationContext.setVariable("_ret", ((RestResponse) result).getData());
@@ -116,5 +123,10 @@ public class OperationLogAop {
             }
         }
         return result;
+    }
+
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = beanFactory;
     }
 }

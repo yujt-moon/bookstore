@@ -1,4 +1,4 @@
-/*
+package com.moon.bookstore.sharding;/*
 package com.moon.bookstore.sharding;
 
 import org.apache.shardingsphere.api.sharding.standard.PreciseShardingAlgorithm;

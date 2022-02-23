@@ -2,13 +2,15 @@ package com.moon.bookstore.common;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 分页请求
  * @author yujiangtao
  * @date 2020/7/18 上午10:14
  */
 @Data
-public class PageRequest {
+public class PageRequest implements Serializable {
 
     /**
      * 分页页数

@@ -81,3 +81,26 @@ com.moon.bookstore.common.annotation.DecimalSerializeOpt
 [玩转Spring中强大的spel表达式！](https://zhuanlan.zhihu.com/p/174786047)
 
 [由浅入深SpEL表达式注入漏洞](http://rui0.cn/archives/1043)
+
+### excel、word、txt、pdf 文件预览
+
+#### 安装
+> cd Apache_OpenOffice_4.1.11_Linux_x86-64_install-deb_zh-CN/zh-CN/DEBS
+> sudo dpkg -i *.deb
+
+#### 启动命令
+> cd /opt/openoffice4/program
+
+> ./soffice "-accept=socket,host=localhost,port=8100;urp;StarOffice.ServiceManager" -nologo -headless -nofirststartwizard &
+
+
+#### 参考链接
+[手把手教你用 Java 实现word、excel、ppt、txt等办公文件在线预览功能！](https://mp.weixin.qq.com/s/nxrvFyUhQGPPr9EZ42p7hw)
+
+[openoffice 官网](https://www.openoffice.org/)
+
+[PDF.js访问远程服务器报file origin does not match viewer's](https://blogls.com/view/main/article_details?id=5ea81da53bbf27777a7cfae2)
+
+[vue项目中使用pdf.js预览pdf文件](https://blog.csdn.net/shentibeitaokong/article/details/80011900)
+
+[pdf.js实现图片在线预览](https://www.cnblogs.com/love-daodao/p/11072282.html)

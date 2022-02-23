@@ -17,6 +17,7 @@ config-cache
 *.iml
 *.ipr
 **/target/**
+**/*.iml
 
 ### Java annotation processor (APT)
 *.factorypath

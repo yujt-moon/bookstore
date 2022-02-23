@@ -11,7 +11,7 @@ import org.springframework.data.annotation.Id;
  */
 @TableName("book")
 @Data
-public class Book {
+public class Book extends Base {
 
     /**
      * 主键

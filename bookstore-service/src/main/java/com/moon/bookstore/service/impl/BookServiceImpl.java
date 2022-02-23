@@ -14,6 +14,7 @@ import com.moon.bookstore.api.entity.BookCategory;
 import com.moon.bookstore.api.request.BookAddRequest;
 import com.moon.bookstore.api.request.BookPageRequest;
 import com.moon.bookstore.api.service.IBookService;
+import com.moon.bookstore.common.exception.BusiException;
 import com.moon.bookstore.service.mapper.BookCategoryMapper;
 import com.moon.bookstore.service.mapper.BookMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -83,7 +84,7 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book>
         Page<Book> page = new Page<>(request.getPageNo(), request.getPageSize());
         IPage<Book> books = baseMapper.selectPage(page, new QueryWrapper<>());
         List<Book> records = books.getRecords();
-        if(CollectionUtils.isNotEmpty(records)) {
+        /*if(CollectionUtils.isNotEmpty(records)) {
             // 查询分类名称
             if(!redisTemplate.hasKey(RedisConstants.CATEGORY_ID_NAME)) {
                 List<BookCategory> bookCategories = bookCategoryMapper.selectList(new QueryWrapper<BookCategory>());
@@ -98,7 +99,7 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book>
                 record.setCategoryName(redisTemplate.opsForHash().get(RedisConstants.CATEGORY_ID_NAME,
                         record.getCategoryId() + "").toString());
             });
-        }
+        }*/
         return books;
     }
 
@@ -222,7 +223,8 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book>
                 page.setRecords(records);
             }
         } catch (IOException e) {
-            log.error("查询失败:", e);
+            log.error("查询失败:{}", e.getMessage(), e);
+            throw new BusiException("书籍全文检索失败！");
         }
         return page;
     }
