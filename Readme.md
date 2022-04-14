@@ -56,9 +56,10 @@ mybatis-plus:
 
 
 ### 自定义序列化
-#### 参考类名
-com.moon.bookstore.common.serialize.DecimalSerializer
-com.moon.bookstore.common.annotation.DecimalSerializeOpt
+#### 相关文件
+[DecimalSerializer](./bookstore-common/src/main/java/com/moon/bookstore/common/serialize/DecimalSerializer.java)
+
+[DecimalSerializeOpt](./bookstore-common/src/main/java/com/moon/bookstore/common/annotation/DecimalSerializeOpt.java)
 
 #### 参考链接
 [SpringBoot接口自定义序列化](https://www.jianshu.com/p/7ad5b5182aca)
@@ -104,3 +105,86 @@ com.moon.bookstore.common.annotation.DecimalSerializeOpt
 [vue项目中使用pdf.js预览pdf文件](https://blog.csdn.net/shentibeitaokong/article/details/80011900)
 
 [pdf.js实现图片在线预览](https://www.cnblogs.com/love-daodao/p/11072282.html)
+
+### List 中属性校验和对象中 List 中属性校验
+
+#### 参考链接
+[Validating Lists in a Spring Controller](https://www.baeldung.com/spring-validate-list-controller)
+
+### springboot 启动使用 banner.txt 显示项目名称
+
+#### 参考链接
+[SpringBoot-12-banner自定义](https://baijiahao.baidu.com/s?id=1725819127500897322&wfr=spider&for=pc)
+
+[Spring Boot自定义启动Banner在线生成工具](https://www.bootschool.net/ascii-art)
+
+[IMG2TXT: ASCII Art Made Easy!](https://www.degraeve.com/img2txt.php)
+
+[ASCII Generator](http://www.network-science.de/ascii/)
+
+[Online Spring Boot Banner Generator (with FIGlet Fonts)](https://devops.datenkollektiv.de/banner.txt/index.html)
+
+[SpringBoot源码剖析之自定义Banner](https://www.jianshu.com/p/aad49c1abb43)
+
+### mybatis 拦截器处理公共字段插入
+[FieldInjectInterceptor](./bookstore-manager/src/main/java/com/moon/bookstore/config/FieldInjectInterceptor.java)
+
+### 自动生成md的目录
+[markdown文件生成目录的方式](https://www.cnblogs.com/ExMan/p/14986547.html)
+
+### dubbo 接口测试方式
+#### 编写单元测试类
+```java
+import com.alibaba.fastjson.JSON;
+import com.enn.carbon.trade.client.req.MyCarbonAssetReq;
+import com.enn.carbon.trade.client.res.CarbonAssetRes;
+import com.enn.carbon.trade.client.service.CarbonAssetDubboService;
+import com.enn.carbon.trade.starter.run.ApplicationRunner;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import top.rdfa.framework.biz.ro.RdfaResult;
+
+/**
+ * @author yujiangtaoa
+ * @date 2022/4/12 上午11:05
+ */
+@Slf4j
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = ApplicationRunner.class)
+public class DubboTest {
+
+  @DubboReference
+  private CarbonAssetDubboService carbonAssetDubboService;
+
+  @Test
+  public void testUserAsset() {
+    MyCarbonAssetReq myCarbonAssetReq = new MyCarbonAssetReq();
+    myCarbonAssetReq.setTenantId("1468033520249413633");
+    myCarbonAssetReq.setUserId("8199956771276783616");
+    RdfaResult<CarbonAssetRes> myCarbonAsset = carbonAssetDubboService.getMyCarbonAsset(myCarbonAssetReq);
+    log.info(JSON.toJSONString(myCarbonAsset));
+  }
+}
+```
+
+#### 使用 telnet 请求
+1. 安装 telnet
+> sudo apt-get install telnet
+
+2. 在配置文件中加上允许执行的命令
+```yaml
+dubbo.provider.telnet = ls,ps,cd,pwd,trace,count,invoke,select,status,log,help,clear,exit,shutdown
+```
+3. 进入 telnet 中的 dubbo 命令行
+> telnet 127.0.0.1 20880
+
+4. 回车进入 dubbo 命令行，[命令参考](https://dubbo.apache.org/zh/docs/references/telnet/)
+
+5. 接口调用参考
+```
+invoke com.enn.carbon.trade.client.service.CarbonAssetDubboService.getMyCarbonAsset({"tenantId":"1457645554732371970", "userId":"1454435733737545730", "class":"com.enn.carbon.trade.client.req.MyCarbonAssetReq"})
+```
