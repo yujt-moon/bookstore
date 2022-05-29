@@ -87,6 +87,7 @@ mybatis-plus:
 
 #### 安装
 > cd Apache_OpenOffice_4.1.11_Linux_x86-64_install-deb_zh-CN/zh-CN/DEBS
+
 > sudo dpkg -i *.deb
 
 #### 启动命令
@@ -188,3 +189,12 @@ dubbo.provider.telnet = ls,ps,cd,pwd,trace,count,invoke,select,status,log,help,c
 ```
 invoke com.enn.carbon.trade.client.service.CarbonAssetDubboService.getMyCarbonAsset({"tenantId":"1457645554732371970", "userId":"1454435733737545730", "class":"com.enn.carbon.trade.client.req.MyCarbonAssetReq"})
 ```
+
+### websocket 使用
+[配置文件 WebSocketConfig](./bookstore-manager/src/main/java/com/moon/bookstore/config/WebSocketConfig.java)
+[WebSocketServer](./bookstore-manager/src/main/java/com/moon/bookstore/websocket/WebSocketServer.java)
+[消息推送接口 WebSocketController](./bookstore-manager/src/main/java/com/moon/bookstore/controller/WebSocketController.java)
+
+#### 参考链接
+[websocket](https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket)
+[SpringBoot 集成 WebSocket，实现后台向前端推送信息](https://mp.weixin.qq.com/s/g2cqqQlCWZMCc4RMuyJSLw)

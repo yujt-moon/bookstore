@@ -59,10 +59,12 @@ public class RequestLogFilter extends OncePerRequestFilter {
             }
         } else if("text/plain".equals(contentType) || "application/json".equals(contentType)) {
             BufferedReader reader = request.getReader();
+            StringBuffer sb = new StringBuffer();
             String line = null;
             while ((line = reader.readLine()) != null) {
-                log.info("请求入参：{}", line);
+                sb.append(line);
             }
+            log.info("请求入参：{}", sb.toString());
         } else {
             if ("GET".equalsIgnoreCase(request.getMethod())) {
                 String queryString = request.getQueryString();

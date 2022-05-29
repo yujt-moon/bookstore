@@ -34,9 +34,6 @@ create table book
 create index name
     on book (name);
 
-create index name_2
-    on book (name);
-
 create table book_category
 (
     id int auto_increment comment '分类id'

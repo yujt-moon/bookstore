@@ -9,6 +9,7 @@ import com.moon.bookstore.api.request.BookPageRequest;
 import com.moon.bookstore.api.service.IBookService;
 import com.moon.bookstore.common.RestResponse;
 import com.moon.bookstore.common.annotation.LogRecord;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,10 @@ import javax.validation.Valid;
  * @author yujiangtao
  * @date 2020/7/14 下午8:58
  */
+@Slf4j
 @RestController
 @RequestMapping("/api/book")
-@Slf4j
+@Api(value = "书籍控制器", tags = {"BookController"})
 @SuppressWarnings("unused")
 public class BookController {
 
@@ -30,6 +32,7 @@ public class BookController {
     private IBookService bookService;
 
     @PostMapping("/page")
+    @ApiOperation("分页查询书籍")
     public RestResponse<IPage<Book>> page(@RequestBody BookPageRequest request) {
         log.info("查询书籍分页请求参数：{}", JSON.toJSONString(request));
         return RestResponse.ok(bookService.page(request));
