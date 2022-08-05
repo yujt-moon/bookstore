@@ -11,13 +11,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.test.context.junit4.SpringRunner;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.pipeline.ConsolePipeline;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Future;
+import java.util.concurrent.locks.LockSupport;
 
 /**
  * @author yujiangtao
@@ -36,6 +41,10 @@ public class BookstoreApplicationTest {
 
     @Autowired
     private PilotCeaPipeline pilotCeaPipeline;
+
+    @Autowired
+    @Qualifier("threadPoolTaskExecutor")
+    private ThreadPoolTaskExecutor executor;
 
     @Test
     public void addBook() {
@@ -89,5 +98,37 @@ public class BookstoreApplicationTest {
                 .start();
         while (true)
             ;
+    }
+
+    @Test
+    public void contextLoads() throws Exception {
+        // 一共 10 批任务
+        for (int i = 0; i < 10; i++) {
+            // 每执行一批任务
+            doOnceTasks();
+            System.out.println("-------------------------------" + i);
+        }
+    }
+
+    private void doOnceTasks() {
+        List<Future> futureList = new ArrayList<>(16);
+        for (int i = 0; i < 15; i++) {
+            Future future = executor.submit(() -> {
+                // 随机睡 0-5秒
+                int sec = new Double(Math.random() * 5).intValue();
+                LockSupport.parkNanos(sec * 1000 * 1000 * 1000);
+                System.out.println(Thread.currentThread().getName() + " end");
+            });
+            futureList.add(future);
+        }
+
+        // 等待所有任务执行结束
+        for (Future future : futureList) {
+            try {
+                future.get();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

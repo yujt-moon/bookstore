@@ -60,7 +60,7 @@ public class ZHBookPageProcessor implements PageProcessor {
             Book book = new Book();
             book.setName(bookName);
             book.setBookCover(bookCover);
-            book.setCategoryId(getCategoryId(categoryName));
+//            book.setCategoryId(getCategoryId(categoryName));
             book.setStatus(status);
             book.setAuthorId(author);
             book.setIntro(intro);

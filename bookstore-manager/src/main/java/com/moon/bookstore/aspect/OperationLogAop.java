@@ -30,6 +30,7 @@ import java.lang.reflect.Method;
 import java.util.Date;
 
 /**
+ * 通过 {@link com.moon.bookstore.common.annotation.LogRecord} 注解实现要输入的内容
  * @author yujiangtao
  * @date 2021/9/14 下午3:42
  */

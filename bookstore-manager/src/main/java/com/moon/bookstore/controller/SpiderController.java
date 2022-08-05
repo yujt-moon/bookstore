@@ -69,17 +69,6 @@ public class SpiderController {
         return RestResponse.ok();
     }
 
-    @GetMapping("/pic")
-    public RestResponse picSpider() {
-        Spider.create(new YellowImageProcessor())
-                .setDownloader(new HttpClientDownloader())
-                .addUrl("https://www.tang103.top/forum-8-1.html")
-                .addPipeline(new ImageDownloadPipeline())
-                .addPipeline(new ConsolePipeline())
-                .thread(5).start();
-        return RestResponse.ok();
-    }
-
     @GetMapping("/cea")
     public RestResponse ceaSpider() {
         Spider.create(new CeaProcessor())
